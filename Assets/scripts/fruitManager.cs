@@ -5,8 +5,6 @@ using UnityEngine;
 public class fruit_behavior : MonoBehaviour
 {
     public List<Rigidbody> fruitPrefab;
-    public List<Rigidbody> fruitupPrefab;
-    public List<Rigidbody> fruitdownPrefab;
     private Rigidbody rb;
     int layer = 0;
     // Start is called before the first frame update
@@ -30,7 +28,7 @@ public class fruit_behavior : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.S))
         if (Input.GetMouseButtonDown(0))
         {
-            spawnFruit(0);
+            spawnFruit(Random.Range(0,fruitPrefab.Count));
         }
     }
 }

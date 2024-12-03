@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4245825156989078503}
   - component: {fileID: 8057487883221950137}
   m_Layer: 0
-  m_Name: bolodown
+  m_Name: orange_down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647990363351659200}
-  m_Mesh: {fileID: -2997450567184561634, guid: 844ce0a10b622bf45804613e7fc86714, type: 3}
+  m_Mesh: {fileID: 7579031701097648077, guid: 6ecc4347cf472e34cbb71feabe7b5ade, type: 3}
 --- !u!23 &3148712408986669894
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -63,8 +63,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b34fe7ff8f4bd31448a41d20c2590428, type: 2}
-  - {fileID: 2100000, guid: b34fe7ff8f4bd31448a41d20c2590428, type: 2}
+  - {fileID: 2100000, guid: 3c1ff824fb17e26428cd76989c57c3b9, type: 2}
+  - {fileID: 2100000, guid: 1079629181558c74a8c5f7b231073514, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
