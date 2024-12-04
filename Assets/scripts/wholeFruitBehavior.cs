@@ -9,10 +9,15 @@ public class wholeFruitBehavior : MonoBehaviour
     public Rigidbody upprefab;
     public Rigidbody downprefab;
     public Rigidbody rbself;
+    public FN_vfx_ctrl particle_vfx_prefab;
+    public FN_SplashController splashctrl_prefab;
     private FN_curser fc;
+    [ColorUsageAttribute(true, true)]
+    public Color fruitcolor;
+    public Color watercolor;
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("ent");
+        //Debug.Log("ent");
         Vector2 relativeSpeed = (new Vector2(rbself.velocity.x, rbself.velocity.y) - fc.curser_speed).normalized;
         //Vector2 relativeSpeed = fc.delta_mpos.normalized;
         Vector3 ori_cut_normal = new Vector3(transform.up.x,transform.up.y,0f);
@@ -24,6 +29,8 @@ public class wholeFruitBehavior : MonoBehaviour
     }
     public void becut()
     {
+        FN_vfx_ctrl newvfx = Instantiate(particle_vfx_prefab, transform.position, Quaternion.identity);
+        newvfx.setspd_col(fc.curser_speed.normalized * 5f, fruitcolor);
         Rigidbody uprb = Instantiate(upprefab, transform.position, transform.rotation);
         uprb.velocity = rbself.velocity + rbself.transform.up.normalized*2f;
         uprb.angularVelocity = rbself.angularVelocity;
@@ -31,6 +38,10 @@ public class wholeFruitBehavior : MonoBehaviour
         Rigidbody dwrb = Instantiate(downprefab, transform.position, transform.rotation);
         dwrb.velocity = rbself.velocity - rbself.transform.up.normalized * 2f;
         dwrb.angularVelocity = rbself.angularVelocity;
+
+        FN_SplashController spcl = Instantiate(splashctrl_prefab, new Vector3(transform.position.x, transform.position.y, 9f), Quaternion.identity);
+        spcl.setcolor(watercolor);
+
         Destroy(gameObject);
     }
 

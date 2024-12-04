@@ -131,6 +131,12 @@ MonoBehaviour:
   downprefab: {fileID: 4245825156989078503, guid: e0802eadbbcde464c8208c9eb92ee653,
     type: 3}
   rbself: {fileID: 3910493624914243659}
+  particle_vfx_prefab: {fileID: 2666310527760100107, guid: 01cb5db5d84f4124884606b071bb0abb,
+    type: 3}
+  splashctrl_prefab: {fileID: 412980230520863842, guid: 1545e5f66e1219c4e9f32885b9049a8e,
+    type: 3}
+  fruitcolor: {r: 4, g: 0.95359063, b: 0.016098868, a: 1}
+  watercolor: {r: 1, g: 0.5254902, b: 0.050980397, a: 1}
 --- !u!136 &9013120787876530075
 CapsuleCollider:
   m_ObjectHideFlags: 0
