@@ -12,9 +12,9 @@ public class wholeFruitBehavior : MonoBehaviour
     public FN_vfx_ctrl particle_vfx_prefab;
     public FN_SplashController splashctrl_prefab;
     private FN_curser fc;
-    [ColorUsageAttribute(true, true)]
-    public Color fruitcolor;
-    public Color watercolor;
+    public Color fruit_color;
+    [ColorUsage(true,true)]
+    public Color bubble_color;
     private void OnTriggerStay(Collider other)
     {
         //Debug.Log("ent");
@@ -30,7 +30,7 @@ public class wholeFruitBehavior : MonoBehaviour
     public void becut()
     {
         FN_vfx_ctrl newvfx = Instantiate(particle_vfx_prefab, transform.position, Quaternion.identity);
-        newvfx.setspd_col(fc.curser_speed.normalized * 5f, fruitcolor);
+        newvfx.setspd_col(fc.curser_speed.normalized * 5f, bubble_color);
         Rigidbody uprb = Instantiate(upprefab, transform.position, transform.rotation);
         uprb.velocity = rbself.velocity + rbself.transform.up.normalized*2f;
         uprb.angularVelocity = rbself.angularVelocity;
@@ -40,7 +40,8 @@ public class wholeFruitBehavior : MonoBehaviour
         dwrb.angularVelocity = rbself.angularVelocity;
 
         FN_SplashController spcl = Instantiate(splashctrl_prefab, new Vector3(transform.position.x, transform.position.y, 9f), Quaternion.identity);
-        spcl.setcolor(watercolor);
+        spcl.setcolor(fruit_color);
+        spcl.setdir(transform.rotation);
 
         Destroy(gameObject);
     }

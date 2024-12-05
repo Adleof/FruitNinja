@@ -135,8 +135,8 @@ MonoBehaviour:
     type: 3}
   splashctrl_prefab: {fileID: 412980230520863842, guid: 1545e5f66e1219c4e9f32885b9049a8e,
     type: 3}
-  fruitcolor: {r: 4, g: 0.95359063, b: 0.016098868, a: 1}
-  watercolor: {r: 1, g: 0.5254902, b: 0.050980397, a: 1}
+  fruit_color: {r: 1, g: 0.5254902, b: 0.050980397, a: 1}
+  bubble_color: {r: 11.984315, g: 2.8570325, b: 0.04823348, a: 0}
 --- !u!136 &9013120787876530075
 CapsuleCollider:
   m_ObjectHideFlags: 0

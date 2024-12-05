@@ -10,6 +10,7 @@ public class FN_vfx_ctrl : MonoBehaviour
     private float efxstt;
     public void setspd_col(Vector2 vel, Color color)
     {
+        //Debug.Log(color.ToString());
         effe.SetVector2("vel_bias",vel);
         effe.SetVector4("color", color);
     }
