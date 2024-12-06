@@ -19,6 +19,7 @@ public class fruit_behavior : MonoBehaviour
         }
         rb.velocity = new Vector3(-spawnx*0.5f, 9.0f, 0.0f);
         rb.angularVelocity = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-3f, 3f), Random.Range(-1f, 1f));
+        rb.gameObject.GetComponent<wholeFruitBehavior>().setid(fid);
     }
 
     // Update is called once per frame

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class wholeFruitBehavior : MonoBehaviour
 {
@@ -15,7 +16,12 @@ public class wholeFruitBehavior : MonoBehaviour
     public Color fruit_color;
     [ColorUsage(true,true)]
     public Color bubble_color;
-    private void OnTriggerStay(Collider other)
+    private int id;
+    public void setid(int nid)
+    {
+        id = nid;
+    }
+    private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("ent");
         Vector2 relativeSpeed = (new Vector2(rbself.velocity.x, rbself.velocity.y) - fc.curser_speed).normalized;
@@ -30,7 +36,7 @@ public class wholeFruitBehavior : MonoBehaviour
     public void becut()
     {
         FN_vfx_ctrl newvfx = Instantiate(particle_vfx_prefab, transform.position, Quaternion.identity);
-        newvfx.setspd_col(fc.curser_speed.normalized * 5f, bubble_color);
+        newvfx.setspd_col(fc.curser_speed.normalized * 6f, bubble_color);
         Rigidbody uprb = Instantiate(upprefab, transform.position, transform.rotation);
         uprb.velocity = rbself.velocity + rbself.transform.up.normalized*2f;
         uprb.angularVelocity = rbself.angularVelocity;
@@ -42,6 +48,7 @@ public class wholeFruitBehavior : MonoBehaviour
         FN_SplashController spcl = Instantiate(splashctrl_prefab, new Vector3(transform.position.x, transform.position.y, 9f), Quaternion.identity);
         spcl.setcolor(fruit_color);
         spcl.setdir(transform.rotation);
+        fc.onCutEvent(transform.position, id);
 
         Destroy(gameObject);
     }
