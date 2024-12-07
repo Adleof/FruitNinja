@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
+public enum FNGameState { Home, Game, End };
 public class FN_curser : MonoBehaviour
 {
     //private void OnTriggerEnter(Collider other)
@@ -17,17 +15,58 @@ public class FN_curser : MonoBehaviour
     private float lastcuttime;
     private int combo;
     private int score;
+    public FNGameState current_game_state;
+    public Rigidbody start_fruit_prefab;
+    public Animator UIcontrol;
+    public Transform NewgameText;
+    public GameObject homeUI;
+    public GameObject gameUI;
+    public GameObject endUI;
 
+    public void enterHome()
+    {
+        Rigidbody rb = Instantiate(start_fruit_prefab, NewgameText); 
+        rb.gameObject.transform.localPosition = new Vector3(0,2.46f,0);
+        rb.gameObject.transform.localScale = Vector3.one/NewgameText.localScale.x*100f;
+        //rb.gameObject.transform.localScale = new Vector3(0.7f,0.7f,0.7f);
+        rb.useGravity = false;
+        rb.angularVelocity = new Vector3(UnityEngine.Random.Range(-0.2f, 0.2f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
+        rb.gameObject.GetComponent<wholeFruitBehavior>().setid(999);//999 for start game fruit
+        UIcontrol.SetTrigger("openHomeScreen");
+    }
     public void onCutEvent(Vector2 pos,int idx)
     {
-        //Debug.Log(pos.ToString() + "id:" + idx.ToString());
-        lastcuttime = Time.realtimeSinceStartup;
-        combo++;
-        score++;
+        //Debug.Log(idx);
+        switch (current_game_state)
+        {
+            case FNGameState.Home:
+                if (idx == 999)//start game fruit id
+                {
+                    current_game_state = FNGameState.Game;
+                    UIcontrol.SetTrigger("closeHomeScreen");
+                    //transaction to game
+                    //homeUI.SetActive(false);
+                    //gameUI.SetActive(true);
+                }
+                break;
+            case FNGameState.Game:
+                lastcuttime = Time.realtimeSinceStartup;
+                combo++;
+                score++;
+                break;
+            case FNGameState.End:
+                break;
+        }
     }
     public String getinfo()
     {
-        return "score:" + score.ToString();
+        return "score:" + score.ToString() + "\n" + Time.fixedDeltaTime.ToString();
+    }
+
+    private void Start()
+    {
+        Time.fixedDeltaTime = 0.002f;
+        enterHome();
     }
 
     // Update is called once per frame
