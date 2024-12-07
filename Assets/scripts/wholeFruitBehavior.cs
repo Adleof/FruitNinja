@@ -65,7 +65,7 @@ public class wholeFruitBehavior : MonoBehaviour
         {
             becut();
         }
-        if(transform.position.y < -7f)
+        if(transform.position.y < -8f)
         {
             Destroy(gameObject);
         }

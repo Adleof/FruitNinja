@@ -17,10 +17,23 @@ public class FN_curser : MonoBehaviour
     private int score;
     public FNGameState current_game_state;
     public Rigidbody start_fruit_prefab;
+    public Animator UIcontrol;
+    public Transform NewgameText;
     public GameObject homeUI;
     public GameObject gameUI;
     public GameObject endUI;
 
+    public void enterHome()
+    {
+        Rigidbody rb = Instantiate(start_fruit_prefab, NewgameText); 
+        rb.gameObject.transform.localPosition = new Vector3(0,2.46f,0);
+        rb.gameObject.transform.localScale = Vector3.one/NewgameText.localScale.x*100f;
+        //rb.gameObject.transform.localScale = new Vector3(0.7f,0.7f,0.7f);
+        rb.useGravity = false;
+        rb.angularVelocity = new Vector3(UnityEngine.Random.Range(-0.2f, 0.2f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
+        rb.gameObject.GetComponent<wholeFruitBehavior>().setid(999);//999 for start game fruit
+        UIcontrol.SetTrigger("openHomeScreen");
+    }
     public void onCutEvent(Vector2 pos,int idx)
     {
         //Debug.Log(idx);
@@ -29,11 +42,11 @@ public class FN_curser : MonoBehaviour
             case FNGameState.Home:
                 if (idx == 999)//start game fruit id
                 {
-                    //Debug.Log("gamestart");
                     current_game_state = FNGameState.Game;
+                    UIcontrol.SetTrigger("closeHomeScreen");
                     //transaction to game
-                    homeUI.SetActive(false);
-                    gameUI.SetActive(true);
+                    //homeUI.SetActive(false);
+                    //gameUI.SetActive(true);
                 }
                 break;
             case FNGameState.Game:
@@ -53,11 +66,7 @@ public class FN_curser : MonoBehaviour
     private void Start()
     {
         Time.fixedDeltaTime = 0.002f;
-        Rigidbody rb = Instantiate(start_fruit_prefab, new Vector3(0f, -1.4f, -10f), Quaternion.identity);
-        //rb.gameObject.transform.localScale = new Vector3(0.7f,0.7f,0.7f);
-        rb.useGravity = false;
-        rb.angularVelocity = new Vector3(UnityEngine.Random.Range(-0.2f, 0.2f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
-        rb.gameObject.GetComponent<wholeFruitBehavior>().setid(999);//999 for start game fruit
+        enterHome();
     }
 
     // Update is called once per frame

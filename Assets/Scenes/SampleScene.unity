@@ -794,7 +794,7 @@ GameObject:
   - component: {fileID: 653376308}
   - component: {fileID: 653376309}
   m_Layer: 0
-  m_Name: Group 1000007256
+  m_Name: newgame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -975,7 +975,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1096250147
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1034,6 +1034,8 @@ MonoBehaviour:
   current_game_state: 0
   start_fruit_prefab: {fileID: 3910493624914243659, guid: 3b8bf2fc48cfc7346be5fac7b1ca61b4,
     type: 3}
+  UIcontrol: {fileID: 2067304973}
+  NewgameText: {fileID: 653376308}
   homeUI: {fileID: 2067304971}
   gameUI: {fileID: 1346082428}
   endUI: {fileID: 1096250146}
@@ -1240,7 +1242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1346082429
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1526,6 +1528,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2067304972}
+  - component: {fileID: 2067304973}
   m_Layer: 5
   m_Name: StartScreen
   m_TagString: Untagged
@@ -1555,6 +1558,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &2067304973
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067304971}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 22141bb4a941f9c4497396eca2a2aea5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2138943458
 GameObject:
   m_ObjectHideFlags: 0
