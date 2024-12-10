@@ -58,7 +58,10 @@ VisualEffect:
     m_Vector4f:
       m_Array: []
     m_Uint:
-      m_Array: []
+      m_Array:
+      - m_Value: 20
+        m_Name: count_small
+        m_Overridden: 1
     m_Int:
       m_Array: []
     m_Matrix4x4f:

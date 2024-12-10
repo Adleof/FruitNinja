@@ -12,7 +12,9 @@ public class FN_curser : MonoBehaviour
     public Vector2 curser_speed;
     public ComboDisp comboprefab;
     public Rigidbody selfrb;
+    public int health;
     private float lastcuttime;
+    private float lastmisstime;
     private int combo;
     private int score;
     public FNGameState current_game_state;
@@ -22,6 +24,7 @@ public class FN_curser : MonoBehaviour
     public GameObject homeUI;
     public GameObject gameUI;
     public GameObject endUI;
+    public fruit_behavior fruitmgr;
 
     public void enterHome()
     {
@@ -44,6 +47,8 @@ public class FN_curser : MonoBehaviour
                 {
                     current_game_state = FNGameState.Game;
                     UIcontrol.SetTrigger("closeHomeScreen");
+                    fruitmgr.startFruit();
+                    health = 3;
                     //transaction to game
                     //homeUI.SetActive(false);
                     //gameUI.SetActive(true);
@@ -58,9 +63,25 @@ public class FN_curser : MonoBehaviour
                 break;
         }
     }
+
+    public void onMissEvent(int idx)
+    {
+        if (idx > 900) return;//message fruit
+        switch (current_game_state)
+        {
+            case FNGameState.Game:
+                if (Time.realtimeSinceStartup > lastmisstime+2)
+                {
+                    health -= 1;
+                    lastmisstime = Time.realtimeSinceStartup;
+                }
+                combo = 0;
+                break;
+        }
+    }
     public String getinfo()
     {
-        return "score:" + score.ToString() + "\n" + Time.fixedDeltaTime.ToString();
+        return "score:" + score.ToString() + "\n" + "health:" + health.ToString() + "\n" + Time.fixedDeltaTime.ToString();
     }
 
     private void Start()
@@ -87,6 +108,8 @@ public class FN_curser : MonoBehaviour
                 ComboDisp nc = Instantiate(comboprefab,new Vector3(Mathf.Clamp(transform.position.x,-6f,6f), Mathf.Clamp(transform.position.y,-2.5f,2.5f), -10),Quaternion.identity);
                 nc.setnum(Math.Min(combo,6));
                 score += combo * 2;
+                health += 1;
+                if (health > 3) health = 3;
             }
             combo = 0;
         }

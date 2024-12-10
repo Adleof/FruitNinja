@@ -67,6 +67,7 @@ public class wholeFruitBehavior : MonoBehaviour
         }
         if(transform.position.y < -8f)
         {
+            fc.onMissEvent(id);
             Destroy(gameObject);
         }
     }

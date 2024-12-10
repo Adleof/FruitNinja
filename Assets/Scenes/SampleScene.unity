@@ -1039,6 +1039,7 @@ MonoBehaviour:
   homeUI: {fileID: 2067304971}
   gameUI: {fileID: 1346082428}
   endUI: {fileID: 1096250146}
+  fruitmgr: {fileID: 401783666}
 --- !u!4 &1324110860
 Transform:
   m_ObjectHideFlags: 0
