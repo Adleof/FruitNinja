@@ -376,6 +376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 102626873}
   - component: {fileID: 102626872}
+  - component: {fileID: 102626874}
   m_Layer: 0
   m_Name: FN_virt_cam
   m_TagString: Untagged
@@ -438,6 +439,18 @@ Transform:
   - {fileID: 915243808}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &102626874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102626871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5417601c7c02bb4c8c6203478f34ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &249335964
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,6 +1730,7 @@ GameObject:
   m_Component:
   - component: {fileID: 915243808}
   - component: {fileID: 915243809}
+  - component: {fileID: 915243810}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -1751,6 +1765,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &915243810
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915243807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: e9ce97b7a206dc64d90931ea044e0c72, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0.7
+  m_FrequencyGain: 15.8
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &962284178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2066,7 +2097,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 572, y: 516}
+  m_AnchoredPosition: {x: 572, y: 592}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1245303366
@@ -2128,16 +2159,16 @@ MonoBehaviour:
   home_fruit_prefab: {fileID: 3910493624914243659, guid: 3b8bf2fc48cfc7346be5fac7b1ca61b4,
     type: 3}
   HomeUIcontrol: {fileID: 2067304973}
+  GameUIcontrol: {fileID: 1346082430}
   EndUIcontrol: {fileID: 1096250148}
   NewgameText: {fileID: 653376308}
   HomeText: {fileID: 2071534444}
   RetryText: {fileID: 1020606416}
-  homeUI: {fileID: 2067304971}
-  gameUI: {fileID: 1346082428}
-  endUI: {fileID: 1096250146}
   fruitmgr: {fileID: 401783666}
   crosscontroller: {fileID: 1245303366}
   EndscreenScoreDisplay: {fileID: 277113409}
+  newbestDisp: {fileID: 1821086281}
+  cameraShakeController: {fileID: 102626874}
 --- !u!4 &1324110860
 Transform:
   m_ObjectHideFlags: 0
@@ -3089,7 +3120,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -576, y: 525}
+  m_AnchoredPosition: {x: -576, y: 592}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2138943460
