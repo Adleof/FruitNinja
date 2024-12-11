@@ -18,20 +18,21 @@ public class FN_curser : MonoBehaviour
     private float lastmisstime;
     private int combo;
     private int score;
+    private int bestscore;
     public FNGameState current_game_state;
     public Rigidbody start_fruit_prefab;
     public Rigidbody home_fruit_prefab;
     public Animator HomeUIcontrol;
+    public Animator GameUIcontrol;
     public Animator EndUIcontrol;
     public Transform NewgameText;
     public Transform HomeText;
     public Transform RetryText;
-    public GameObject homeUI;
-    public GameObject gameUI;
-    public GameObject endUI;
     public fruit_behavior fruitmgr;
     public CrossDisp crosscontroller;
     public TextMeshProUGUI EndscreenScoreDisplay;
+    public GameObject newbestDisp;
+    public cam_shake_controller cameraShakeController;
     private Rigidbody homefruit;
     private Rigidbody retryfruit;
 
@@ -52,6 +53,7 @@ public class FN_curser : MonoBehaviour
     }
     public void enterGame()
     {
+        GameUIcontrol.SetTrigger("openGameScreen");
         fruitmgr.startFruit();
         health = 3;
         score = 0;
@@ -59,6 +61,7 @@ public class FN_curser : MonoBehaviour
     }
     public void exitGame()
     {
+        GameUIcontrol.SetTrigger("closeGameScreen");
         fruitmgr.stopFruit();
     }
     public void enterEnd()
@@ -132,11 +135,21 @@ public class FN_curser : MonoBehaviour
             case FNGameState.Game:
                 if (Time.realtimeSinceStartup > lastmisstime+2)
                 {
+                    cameraShakeController.shakeCam(0.2f);
                     health -= 1;
                     crosscontroller.sethealth(health);
                     lastmisstime = Time.realtimeSinceStartup;
                     if (health <= 0)
                     {
+                        if(score > bestscore)
+                        {
+                            bestscore = score;
+                            newbestDisp.SetActive(true);
+                        }
+                        else
+                        {
+                            newbestDisp.SetActive(false);
+                        }
                         current_game_state = FNGameState.End;
                         exitGame();
                         enterEnd();
@@ -148,7 +161,8 @@ public class FN_curser : MonoBehaviour
     }
     public String getinfo()
     {
-        return "score:" + score.ToString() + "\n" + "health:" + health.ToString() + "\n" + Time.fixedDeltaTime.ToString();
+        //return "score:" + score.ToString() + "\n" + "health:" + health.ToString() + "\n" + Time.fixedDeltaTime.ToString();
+        return "score:" + score.ToString() + "\n" + "Best:" + bestscore.ToString();
     }
 
     private void Start()
