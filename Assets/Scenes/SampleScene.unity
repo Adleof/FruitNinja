@@ -1023,6 +1023,10 @@ MonoBehaviour:
   fruitPrefab:
   - {fileID: 3910493624914243659, guid: 763e0d3cb3f3e5b42b9f409c078cbe9f, type: 3}
   - {fileID: 3910493624914243659, guid: 3b8bf2fc48cfc7346be5fac7b1ca61b4, type: 3}
+  - {fileID: 3910493624914243659, guid: 0c6266b9a293b59408020a6e6cc788b1, type: 3}
+  - {fileID: 3910493624914243659, guid: eb36f8360d3dbd94aa6195aba5efa91d, type: 3}
+  - {fileID: 3910493624914243659, guid: 0e395b972f5bf8441be0509100746495, type: 3}
+  - {fileID: 3910493624914243659, guid: 1aea01e0e15e3964ab37784c264552f5, type: 3}
 --- !u!4 &401783667
 Transform:
   m_ObjectHideFlags: 0
@@ -2156,7 +2160,7 @@ MonoBehaviour:
   current_game_state: 0
   start_fruit_prefab: {fileID: 3910493624914243659, guid: 3b8bf2fc48cfc7346be5fac7b1ca61b4,
     type: 3}
-  home_fruit_prefab: {fileID: 3910493624914243659, guid: 3b8bf2fc48cfc7346be5fac7b1ca61b4,
+  home_fruit_prefab: {fileID: 3910493624914243659, guid: 1aea01e0e15e3964ab37784c264552f5,
     type: 3}
   HomeUIcontrol: {fileID: 2067304973}
   GameUIcontrol: {fileID: 1346082430}

@@ -74,7 +74,7 @@ public class FN_curser : MonoBehaviour
         homefruit.angularVelocity = new Vector3(UnityEngine.Random.Range(-0.2f, 0.2f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
         homefruit.gameObject.GetComponent<wholeFruitBehavior>().setid(998);//998 for home menu fruit
 
-        retryfruit = Instantiate(home_fruit_prefab, RetryText);
+        retryfruit = Instantiate(start_fruit_prefab, RetryText);
         retryfruit.gameObject.transform.localPosition = new Vector3(0, 2.46f, 0);
         retryfruit.gameObject.transform.localScale = Vector3.one / RetryText.localScale.x * 100f;
         retryfruit.useGravity = false;
