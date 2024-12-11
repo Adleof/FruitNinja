@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public enum FNGameState { Home, Game, End };
@@ -19,12 +20,20 @@ public class FN_curser : MonoBehaviour
     private int score;
     public FNGameState current_game_state;
     public Rigidbody start_fruit_prefab;
-    public Animator UIcontrol;
+    public Rigidbody home_fruit_prefab;
+    public Animator HomeUIcontrol;
+    public Animator EndUIcontrol;
     public Transform NewgameText;
+    public Transform HomeText;
+    public Transform RetryText;
     public GameObject homeUI;
     public GameObject gameUI;
     public GameObject endUI;
     public fruit_behavior fruitmgr;
+    public CrossDisp crosscontroller;
+    public TextMeshProUGUI EndscreenScoreDisplay;
+    private Rigidbody homefruit;
+    private Rigidbody retryfruit;
 
     public void enterHome()
     {
@@ -35,7 +44,44 @@ public class FN_curser : MonoBehaviour
         rb.useGravity = false;
         rb.angularVelocity = new Vector3(UnityEngine.Random.Range(-0.2f, 0.2f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
         rb.gameObject.GetComponent<wholeFruitBehavior>().setid(999);//999 for start game fruit
-        UIcontrol.SetTrigger("openHomeScreen");
+        HomeUIcontrol.SetTrigger("openHomeScreen");
+    }
+    public void exitHome()
+    {
+        HomeUIcontrol.SetTrigger("closeHomeScreen");
+    }
+    public void enterGame()
+    {
+        fruitmgr.startFruit();
+        health = 3;
+        score = 0;
+        crosscontroller.sethealth(health);
+    }
+    public void exitGame()
+    {
+        fruitmgr.stopFruit();
+    }
+    public void enterEnd()
+    {
+        EndscreenScoreDisplay.text = score.ToString();
+        homefruit = Instantiate(home_fruit_prefab, HomeText);
+        homefruit.gameObject.transform.localPosition = new Vector3(0, 2.46f, 0);
+        homefruit.gameObject.transform.localScale = Vector3.one / HomeText.localScale.x * 100f;
+        homefruit.useGravity = false;
+        homefruit.angularVelocity = new Vector3(UnityEngine.Random.Range(-0.2f, 0.2f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
+        homefruit.gameObject.GetComponent<wholeFruitBehavior>().setid(998);//998 for home menu fruit
+
+        retryfruit = Instantiate(home_fruit_prefab, RetryText);
+        retryfruit.gameObject.transform.localPosition = new Vector3(0, 2.46f, 0);
+        retryfruit.gameObject.transform.localScale = Vector3.one / RetryText.localScale.x * 100f;
+        retryfruit.useGravity = false;
+        retryfruit.angularVelocity = new Vector3(UnityEngine.Random.Range(-0.2f, 0.2f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
+        retryfruit.gameObject.GetComponent<wholeFruitBehavior>().setid(997);//997 for retry fruit
+        EndUIcontrol.SetTrigger("openEndScreen");
+    }
+    public void exitEnd()
+    {
+        EndUIcontrol.SetTrigger("closeEndScreen");
     }
     public void onCutEvent(Vector2 pos,int idx)
     {
@@ -46,12 +92,9 @@ public class FN_curser : MonoBehaviour
                 if (idx == 999)//start game fruit id
                 {
                     current_game_state = FNGameState.Game;
-                    UIcontrol.SetTrigger("closeHomeScreen");
-                    fruitmgr.startFruit();
-                    health = 3;
                     //transaction to game
-                    //homeUI.SetActive(false);
-                    //gameUI.SetActive(true);
+                    exitHome();
+                    enterGame();
                 }
                 break;
             case FNGameState.Game:
@@ -60,6 +103,23 @@ public class FN_curser : MonoBehaviour
                 score++;
                 break;
             case FNGameState.End:
+
+                if (idx == 998)//home fruit id
+                {
+                    current_game_state = FNGameState.Home;
+                    //transaction to game
+                    exitEnd();
+                    enterHome();
+                    Destroy(retryfruit.gameObject);
+                }
+                if (idx == 997)//retry fruit id
+                {
+                    current_game_state = FNGameState.Game;
+                    //transaction to game
+                    exitEnd();
+                    enterGame();
+                    Destroy(homefruit.gameObject);
+                }
                 break;
         }
     }
@@ -73,7 +133,14 @@ public class FN_curser : MonoBehaviour
                 if (Time.realtimeSinceStartup > lastmisstime+2)
                 {
                     health -= 1;
+                    crosscontroller.sethealth(health);
                     lastmisstime = Time.realtimeSinceStartup;
+                    if (health <= 0)
+                    {
+                        current_game_state = FNGameState.End;
+                        exitGame();
+                        enterEnd();
+                    }
                 }
                 combo = 0;
                 break;
@@ -110,6 +177,7 @@ public class FN_curser : MonoBehaviour
                 score += combo * 2;
                 health += 1;
                 if (health > 3) health = 3;
+                crosscontroller.sethealth(health);
             }
             combo = 0;
         }

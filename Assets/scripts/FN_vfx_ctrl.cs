@@ -8,6 +8,8 @@ public class FN_vfx_ctrl : MonoBehaviour
     // Start is called before the first frame update 
     public VisualEffect effe; 
     private float efxstt;
+    public float timepass;
+    public int liveparticle;
     public void setspd_col(Vector2 vel, Color color)
     {
         //Debug.Log(color.ToString());
@@ -22,7 +24,9 @@ public class FN_vfx_ctrl : MonoBehaviour
     {
         //Debug.Log(efxalive.ToString() + "," + effectbig.aliveParticleCount.ToString() +","+ effectsml.aliveParticleCount.ToString());
         //effectbig.
-        if (Time.realtimeSinceStartup > (efxstt+0.5f) && effe.aliveParticleCount == 0)
+        timepass = Time.realtimeSinceStartup - efxstt;
+        liveparticle = effe.aliveParticleCount;
+        if (timepass > 5 || (timepass > 0.5f && effe.aliveParticleCount == 0))
         {
             Destroy(gameObject);
         }
