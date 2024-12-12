@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class fruit_behavior : MonoBehaviour
@@ -42,13 +43,32 @@ public class fruit_behavior : MonoBehaviour
     public List<Rigidbody> fruitPrefab;
     private Rigidbody rb;
     int layer = 0;
+
+    public Slider feverslider;
+    public Image feverimg;
+    private float feverduration;
     enum FNmgrState { stop, wait, throwfruit, fever };
     private float nextthrow;
     private float feverendtime;
     private FNmgrState curstate;
 
-    public void enterfever(float fduration)
+    public void addFever(float val)
     {
+        if (curstate != FNmgrState.fever)
+        {
+            feverslider.value += val;
+            feverimg.material.SetFloat("_brightness", 0.7f + feverslider.value * 0.3f);
+            if (feverslider.value >= 1)
+            {
+                feverimg.material.SetFloat("_brightness", 5f);
+                enterfever(7f);
+            }
+        }
+    }
+
+    void enterfever(float fduration)
+    {
+        feverduration = fduration;
         feverendtime = Time.realtimeSinceStartup + fduration;
         curstate = FNmgrState.fever;
         nextthrow = 0;
@@ -63,13 +83,14 @@ public class fruit_behavior : MonoBehaviour
         {
             layer = 0;
         }
-        rb.velocity = new Vector3(-spawnx*0.5f, 9.0f, 0.0f);
+        rb.velocity = new Vector3(-spawnx*0.5f + Random.Range(-0.3f, 0.3f), 9.0f + Random.Range(-1.2f, 1.2f), 0.0f);
         rb.angularVelocity = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-3f, 3f), Random.Range(-1f, 1f));
         rb.gameObject.GetComponent<wholeFruitBehavior>().setid(fid);
     }
 
     public void startFruit()
     {
+        feverslider.value = 0;
         curstate = FNmgrState.wait;
         wait_two.start_timeline();
     }
@@ -84,15 +105,16 @@ public class fruit_behavior : MonoBehaviour
         wait_two = new FruTimline(new List<float> { }, 2f);
         patterns = new List<FruTimline>();
         patterns.Add(new FruTimline(new List<float> { 1, 2, 3 }, 4f));
-        patterns.Add(new FruTimline(new List<float> { 1, 2, 3 }, 4f));
-        patterns.Add(new FruTimline(new List<float> { 1, 2, 3 }, 4f));
-        patterns.Add(new FruTimline(new List<float> { 1, 2, 3, 4, 5 }, 6f));
         patterns.Add(new FruTimline(new List<float> { 1, 2, 3, 4, 5 }, 6f));
         patterns.Add(new FruTimline(new List<float> { 1, 2, 3, 4, 5 }, 6f));
         patterns.Add(new FruTimline(new List<float> { 1, 1, 1 }, 2f));
         patterns.Add(new FruTimline(new List<float> { 1, 1.5f, 2, 2.5f, 3, 3.5f , 4}, 5f));
         patterns.Add(new FruTimline(new List<float> { 1, 1.2f, 1.4f, 1.5f }, 2.5f));
         patterns.Add(new FruTimline(new List<float> { 1, 1, 1.1f, 1.1f, 1.2f  }, 3f));
+        patterns.Add(new FruTimline(new List<float> { 1, 1, 1.1f, 1.1f, 1.2f }, 3f));
+        patterns.Add(new FruTimline(new List<float> { 1, 1, 1.1f, 1.1f, 1.2f }, 3f));
+        patterns.Add(new FruTimline(new List<float> { 1, 1.1f, 1.1f, 1.3f, 1.4f }, 3f));
+        patterns.Add(new FruTimline(new List<float> { 1, 1.1f, 1.1f, 1.3f, 1.4f }, 3f));
         patterns.Add(new FruTimline(new List<float> { 1, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f }, 2.8f));
         patterns.Add(new FruTimline(new List<float> { 1, 1.25f, 1.5f, 1.75f, 2f, 2.25f, 2.5f, 2.75f, 3f }, 3.8f));
     }
@@ -100,7 +122,8 @@ public class fruit_behavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        //Debug.Log(feverimg.material.GetFloat("_brightness"));
+        if (Input.GetKeyDown(KeyCode.G))
         {
             spawnFruit(Random.Range(0, fruitPrefab.Count));
         }
@@ -135,6 +158,7 @@ public class fruit_behavior : MonoBehaviour
                 break;
             case FNmgrState.fever:
                 float ct = Time.realtimeSinceStartup;
+                feverslider.value = (feverendtime - ct) / feverduration;
                 if ( ct > nextthrow)
                 {
                     nextthrow = ct + 0.1f;
@@ -142,8 +166,10 @@ public class fruit_behavior : MonoBehaviour
                 }
                 if (ct > feverendtime)
                 {
+                    feverslider.value = 0;
                     curstate = FNmgrState.wait;
                     wait_two.start_timeline();
+                    feverimg.material.SetFloat("_brightness", 0.7f);
                 }
                 break;
         }

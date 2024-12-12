@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum FNGameState { Home, Game, End };
 public class FN_curser : MonoBehaviour
@@ -33,6 +34,9 @@ public class FN_curser : MonoBehaviour
     public TextMeshProUGUI EndscreenScoreDisplay;
     public GameObject newbestDisp;
     public cam_shake_controller cameraShakeController;
+    public AudioClip cing_sound;
+    public AudioClip drop_sound;
+    public AudioClip splash_sound;
     private Rigidbody homefruit;
     private Rigidbody retryfruit;
 
@@ -89,6 +93,8 @@ public class FN_curser : MonoBehaviour
     public void onCutEvent(Vector2 pos,int idx)
     {
         //Debug.Log(idx);
+        AudioSource.PlayClipAtPoint(cing_sound, transform.position);
+        AudioSource.PlayClipAtPoint(splash_sound, transform.position);
         switch (current_game_state)
         {
             case FNGameState.Home:
@@ -104,6 +110,7 @@ public class FN_curser : MonoBehaviour
                 lastcuttime = Time.realtimeSinceStartup;
                 combo++;
                 score++;
+                fruitmgr.addFever(0.01f);
                 break;
             case FNGameState.End:
 
@@ -137,6 +144,7 @@ public class FN_curser : MonoBehaviour
                 {
                     cameraShakeController.shakeCam(0.2f);
                     health -= 1;
+                    AudioSource.PlayClipAtPoint(drop_sound, transform.position);
                     crosscontroller.sethealth(health);
                     lastmisstime = Time.realtimeSinceStartup;
                     if (health <= 0)
@@ -192,6 +200,7 @@ public class FN_curser : MonoBehaviour
                 health += 1;
                 if (health > 3) health = 3;
                 crosscontroller.sethealth(health);
+                fruitmgr.addFever(combo*0.05f);
             }
             combo = 0;
         }
