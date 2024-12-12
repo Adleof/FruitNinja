@@ -181,7 +181,7 @@ public class FN_curser : MonoBehaviour
         p_mwpos = mwpos;
         //transform.position = new Vector3(mwpos.x, mwpos.y, transform.position.z);
         selfrb.MovePosition(new Vector3(mwpos.x, mwpos.y, transform.position.z));
-        if (Time.realtimeSinceStartup - lastcuttime > 0.2f)
+        if (Time.realtimeSinceStartup - lastcuttime > 0.2f || combo >= 6)
         {
             if (combo >= 3)
             {
